@@ -1,0 +1,66 @@
+body {
+    font-family: 'Helvetica Neue', 'Arial', sans-serif;
+}
+
+header {
+    padding: 10px;
+    background-color: black;
+    font-family: 'Pathway Gothic One', sans-serif;
+    color: white;
+    font-size: 2rem;
+}
+
+.logo span {
+    vertical-align: middle;
+    text-transform: uppercase;
+}
+
+.logo img {
+    margin-right: 20px;
+}
+
+.inventory td img {
+    height: 100px;
+}
+
+.inventory tbody tr th {
+    vertical-align: middle;
+}
+
+.inventory tbody tr td {
+    vertical-align: middle;
+}
+
+.inventory .description {
+    font-size: 12px;
+}
+
+.low-stock {
+    background-color: #f4a9a9;
+}
+
+.low-stock td.qty {
+    color: #e7191c;
+    font-weight: bold;
+}
+
+#add-item .has-error input {
+    border-color: #e7191c;
+}
+
+#add-item .has-error textarea {
+    border-color: #e7191c;
+}
+
+#add-item .has-error label {
+    color: #e7191c;
+}
+
+#add-item .help-block {
+    display: none;
+    color: #e7191c;
+}
+
+#add-item .has-error .help-block {
+    display: block;
+}
