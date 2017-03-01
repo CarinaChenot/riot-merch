@@ -18,13 +18,13 @@ $items = $query->fetchAll();
     <title>Riot Games Inventory</title>
     <link href="https://fonts.googleapis.com/css?family=Pathway+Gothic+One" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="src/css/style.css">
-    <script src="src/js/main.js" async></script>
+    <link rel="stylesheet" href="src/css/app.min.css">
+    <script src="src/js/main.min.js" async></script>
 </head>
 <body>
-    <header>
+    <header class="header">
         <div class="logo">
-            <img src="src/images/fist-icon-white.png" alt="white first logo">
+            <img src="src/img/fist-icon-white.png" alt="white fist logo">
             <span>Riot merch inventory</span>
         </div>
     </header>
@@ -62,7 +62,7 @@ $items = $query->fetchAll();
                 </tbody>
             </table>
         </section>
-        <section id="add-item">
+        <section class="add-item">
             <div class="row">
                 <h3>Add new item</h3>
 

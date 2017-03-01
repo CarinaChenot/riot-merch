@@ -1,0 +1,25 @@
+.inventory {
+    tbody tr {
+        td,
+        th {
+            vertical-align: middle;
+        }
+
+        td img {
+            height: 100px;
+        }
+    }
+
+    .description {
+        font-size: 12px;
+    }
+}
+
+.low-stock {
+    background-color: #f4a9a9;
+
+    td.qty {
+        color: #e7191c;
+        font-weight: bold;
+    }
+}

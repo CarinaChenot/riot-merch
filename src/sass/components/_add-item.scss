@@ -1,0 +1,21 @@
+.add-item {
+    .has-error {
+        input,
+        textarea {
+            border-color: $red;
+        }
+
+        label {
+            color: $red;
+        }
+
+        .help-block {
+            display: block;
+        }
+    }
+
+    .help-block {
+        display: none;
+        color: $red;
+    }
+}
