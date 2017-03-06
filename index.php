@@ -2,11 +2,10 @@
 
 include 'includes/config.php';
 include 'includes/handle_form.php';
+include 'includes/delete.php';
 
 $query = $pdo->query('SELECT * FROM items');
 $items = $query->fetchAll();
-
-// $query = $pdo->query('DELETE FROM `items` WHERE `id` = 4');
 
 ?>
 
@@ -17,7 +16,6 @@ $items = $query->fetchAll();
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
     <title>Riot Games Inventory</title>
     <link href="https://fonts.googleapis.com/css?family=Pathway+Gothic+One" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="src/css/app.min.css">
     <script src="src/js/main.min.js" async></script>
 </head>
@@ -25,12 +23,17 @@ $items = $query->fetchAll();
     <header class="header">
         <div class="logo">
             <img src="src/img/fist-icon-white.png" alt="white fist logo">
-            <span>Riot merch inventory</span>
         </div>
+        <div class="logo-text">
+            <h1>Riot merch inventory</h1>
+        </div>
+        <button type="button" class="btn btn-primary button">Export</button>
+        <button type="button" class="btn btn-primary button">Change currency</button>
+        <button type="button" class="btn btn-primary button">Add item</button>
     </header>
     <div class="container">
-        <section class="inventory">
-            <h3>Inventory <small><button type="button" class="btn btn-primary">Add item</button></small></h3>
+        <section id="inventory">
+            <!-- <h3>Inventory <small><button type="button" class="btn btn-primary button">Add item</button></small></h3> -->
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -48,15 +51,21 @@ $items = $query->fetchAll();
                 <tbody>
                     <?php foreach ($items as $_item): ?>
                         <tr class="<?= $_item->quantity < 10 ? 'low-stock' : '' ?>">
-                            <th><?= $_item->id ?></th>
+                            <td><?= $_item->id ?></td>
                             <td><img src="<?= $_item->picture ?>" alt="item picture"></td>
                             <td class="title"><?= $_item->title ?></td>
                             <td class="description"><?= $_item->description ?></td>
-                            <td><?= $_item->price ?> €</td>
+                            <td class="price" ><?= $_item->price ?> €</td>
                             <td class="qty"><?= $_item->quantity ?></td>
-                            <td><?= substr($_item->date, 0, 10); ?></td>
-                            <td><?= $_item->category ?></td>
-                            <td><input class="remove" data-item="<?= $_item->id ?>" value="Delete" type="submit" onclick="deleteItem(this)"></input></td>
+                            <td class="date"><?= substr($_item->date, 0, 10); ?></td>
+                            <td class="category"><?= $_item->category ?></td>
+                            <td>
+                                <form action="#" method="post">
+                                    <input type="hidden" name="type" value="delete">
+                                    <input type="hidden" name="delete_id" value="<?= $_item->id ?>">
+                                    <input class="button" type="submit" value="delete">
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -67,6 +76,7 @@ $items = $query->fetchAll();
                 <h3>Add new item</h3>
 
                 <form class="add-item-form" action="#" method="post">
+                    <input type="hidden" name="type" value="add">
                     <!-- Title -->
                     <div class="form-group <?= array_key_exists('title', $error_messages) ? 'has-error' : '' ?>">
                         <label class="control-label" for="title">Name</label>
@@ -107,7 +117,7 @@ $items = $query->fetchAll();
                         <span id="picture-help" class="help-block"><?= $error_messages['picture'] ?></span>
                     </div>
                     <div>
-                        <input type="submit">
+                        <input class="button" type="submit">
                     </div>
                 </form>
             </div>

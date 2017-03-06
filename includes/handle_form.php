@@ -5,7 +5,7 @@ $error_messages = array();
 $success_messages = array();
 
 // Form sent
-if(!empty($_POST)) {
+if(!empty($_POST) && $_POST['type'] == 'add') {
 
     // Retrieve data
     $title       = trim($_POST['title']);
