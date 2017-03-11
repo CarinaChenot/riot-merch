@@ -5,7 +5,7 @@ $error_messages = array();
 $success_messages = array();
 
 // Form sent
-if(!empty($_POST) && $_POST['type'] == 'add') {
+if(!empty($_POST) && ($_POST['type'] == 'add' || $_POST['type'] == 'edit') {
 
     // Retrieve data
     $title       = trim($_POST['title']);
@@ -46,7 +46,7 @@ if(!empty($_POST) && $_POST['type'] == 'add') {
         $error_messages['category'] = 'Wrong category entry';
 
     // No errors
-    if(empty($error_messages)) {
+    if(empty($error_messages) && $_POST['type'] == 'add') {
 
         $prepare = $pdo->prepare('INSERT INTO items (title, description, price, quantity, category, picture) VALUES (:title, :description, :price, :quantity, :category, :picture)');
 
@@ -70,6 +70,9 @@ if(!empty($_POST) && $_POST['type'] == 'add') {
         $_POST['quantity']    = '';
         $_POST['category']    = '';
         $_POST['picture']     = '';
+    }
+    if (empty($error_messages && $_POST['type'] == 'edit') {
+      
     }
 }
 

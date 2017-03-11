@@ -40,7 +40,7 @@ gulp.task('sass', function () {
 
 // JS task
 gulp.task('js', function(){
-  return gulp.src('src/js/**/*.js')
+  return gulp.src('src/js/*.js')
     .pipe(plumber({
       errorHandler: function (error) {
         console.log(error.message)
@@ -56,7 +56,7 @@ gulp.task('js', function(){
 // Wath task
 gulp.task('watch', function() {
     gulp.watch("src/sass/**/*.scss", ['sass'])
-    gulp.watch("src/js/**/*.js, '!js/**/*.min.js", ['js'])
+    gulp.watch("src/js/**/*.js, !js/**/*.min.js", ['js'])
 })
 
 gulp.task('default', ['connect', 'watch'], function() {

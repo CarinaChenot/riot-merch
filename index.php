@@ -4,8 +4,13 @@ include 'includes/config.php';
 include 'includes/handle_form.php';
 include 'includes/delete.php';
 
+
 $query = $pdo->query('SELECT * FROM items');
 $items = $query->fetchAll();
+
+echo "<pre>";
+   print_r($_POST);
+echo "</pre>";
 
 ?>
 
@@ -17,7 +22,7 @@ $items = $query->fetchAll();
     <title>Riot Games Inventory</title>
     <link href="https://fonts.googleapis.com/css?family=Pathway+Gothic+One" rel="stylesheet">
     <link rel="stylesheet" href="src/css/app.min.css">
-    <script src="src/js/main.min.js" async></script>
+    <script src="src/js/main.js" async></script>
 </head>
 <body>
     <header class="header">
@@ -27,13 +32,12 @@ $items = $query->fetchAll();
         <div class="logo-text">
             <h1>Riot merch inventory</h1>
         </div>
-        <button type="button" class="btn btn-primary button">Export</button>
-        <button type="button" class="btn btn-primary button">Change currency</button>
-        <button type="button" class="btn btn-primary button">Add item</button>
+        <button type="button" class="button">Export</button>
+        <button type="button" class="button">Change currency</button>
+        <button type="button" class="button add-button">Add item</button>
     </header>
     <div class="container">
         <section id="inventory">
-            <!-- <h3>Inventory <small><button type="button" class="btn btn-primary button">Add item</button></small></h3> -->
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -65,18 +69,19 @@ $items = $query->fetchAll();
                                     <input type="hidden" name="delete_id" value="<?= $_item->id ?>">
                                     <input class="button" type="submit" value="delete">
                                 </form>
+                                <button class="button edit" data-item="<?= $_item->id ?>">Edit</button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </section>
-        <section class="add-item">
-            <div class="row">
+        <section class="item-form">
+            <div class="item-form-container">
                 <h3>Add new item</h3>
 
-                <form class="add-item-form" action="#" method="post">
-                    <input type="hidden" name="type" value="add">
+                <form action="#" method="post">
+                    <input class="type" type="hidden" name="type" value="add">
                     <!-- Title -->
                     <div class="form-group <?= array_key_exists('title', $error_messages) ? 'has-error' : '' ?>">
                         <label class="control-label" for="title">Name</label>
@@ -86,7 +91,7 @@ $items = $query->fetchAll();
                     <!-- Description -->
                     <div class="form-group <?= array_key_exists('description', $error_messages) ? 'has-error' : '' ?>">
                         <label class="control-label" for="description">Description</label>
-                        <textarea class="form-control" name="description" id="description" aria-describedby="description-help"><?= $_POST['description'] ?></textarea>
+                        <textarea class="form-control" name="description" id="description" aria-describedby="description-help" rows="3"><?= $_POST['description'] ?></textarea>
                         <span id="description-help" class="help-block"><?= $error_messages['description'] ?></span>
                     </div>
                     <!-- Price -->
