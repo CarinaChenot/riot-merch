@@ -19,7 +19,3 @@ gulp
 
 * Task runner Gulp
 * Sass
-
-### Notes
-
-J'ai essayé de faire le changement de devise mais je n'y suis pas arrivée jusqu'au bout, donc j'ai laissé mon avancement en commentaire.
