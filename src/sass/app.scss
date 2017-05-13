@@ -8,12 +8,10 @@ Version: 1.0
 
 // Base
 @import 'base/reset';
-// @import 'vendor/bootstrap.min';
 @import 'base/variables';
 @import 'base/global';
 
 // Components
 @import 'components/header';
 @import 'components/inventory';
-@import 'components/add-item';
-@import 'components/edit-item';
+@import 'components/form';

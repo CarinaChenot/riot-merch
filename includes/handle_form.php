@@ -4,8 +4,18 @@
 $error_messages = array();
 $success_messages = array();
 
+
+// if ($currency === NULL) {
+//     $currency = true;
+// }
+// echo "<pre>";
+// var_dump($currency);
+// echo "</pre>";
+//
+
+
 // Form sent
-if(!empty($_POST) && ($_POST['type'] == 'add' || $_POST['type'] == 'edit') {
+if(!empty($_POST) && ($_POST['type'] == 'add' || $_POST['type'] == 'edit')) {
 
     // Retrieve data
     $title       = trim($_POST['title']);
@@ -71,19 +81,75 @@ if(!empty($_POST) && ($_POST['type'] == 'add' || $_POST['type'] == 'edit') {
         $_POST['category']    = '';
         $_POST['picture']     = '';
     }
-    if (empty($error_messages && $_POST['type'] == 'edit') {
-      
+    if (empty($error_messages) && $_POST['type'] == 'edit') {
+
+        $id = $_POST['edit_id'];
+
+        $prepare = $pdo->prepare("UPDATE items SET title = :title, description = :description, price = :price, quantity = :quantity, category = :category, picture = :picture WHERE id = :id");
+
+        $prepare->bindValue('id', $id);
+        $prepare->bindValue('title', $title);
+        $prepare->bindValue('description', $description);
+        $prepare->bindValue('price', $price);
+        $prepare->bindValue('quantity', $quantity);
+        $prepare->bindValue('category', $category);
+        $prepare->bindValue('picture', $picture);
+
+        $prepare->execute();
+
+        // Clean values
+        $title       = '';
+        $description = '';
+        $price       = '';
+        $quantity    = '';
+        $category    = '';
+        $picture     = '';
+
     }
+} elseif (!empty($_POST) && $_POST['type'] == 'display_edit') {
+
+    $id = $_POST['edit_id'];
+
+    $prepare = $pdo->prepare('SELECT * FROM items WHERE id =:id');
+    $prepare->bindValue('id', $id);
+    $prepare->execute();
+    $data = $prepare->fetch();
+
+
+    // Retrieve data
+    $title       = $data->title;
+    $description = $data->description;
+    $price       = $data->price;
+    $quantity    = $data->quantity;
+    $category    = $data->category;
+    $picture     = $data->picture;
+
+//     // Change currency
+// } elseif (!empty($_POST) && $_POST['type'] == 'currency') {
+//
+//     if ($currency) {
+//         $prepare = $pdo->prepare("UPDATE items SET price = price * 1.06838");
+//         $currency = false;
+//         echo "dollar";
+//     }
+//     else {
+//         $prepare = $pdo->prepare("UPDATE items SET price = price * 0.93600");
+//         $currency = true;
+//         echo "euro";
+//     }
+//     $prepare->execute();
+
 }
 
 // No data sent
-else
-{
-    // Default values
-    $_POST['title']       = '';
-    $_POST['description'] = '';
-    $_POST['price']       = '';
-    $_POST['quantity']    = '';
-    $_POST['category']    = '';
-    $_POST['picture']     = '';
+else {
+
+    // Clean values
+    $title       = '';
+    $description = '';
+    $price       = '';
+    $quantity    = '';
+    $category    = '';
+    $picture     = '';
+
 }

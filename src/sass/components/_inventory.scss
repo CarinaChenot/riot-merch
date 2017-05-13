@@ -6,7 +6,6 @@
         font-family: $font-title;
         text-transform: uppercase;
         font-size: 1.5em;
-        // background: #CCC;
         background: $light-grey;
         color: white;
     }
@@ -32,6 +31,7 @@
         font-family: $font-title;
         text-align: center;
     }
+
     .qty {
         font-size: 1.2em;
     }
@@ -43,12 +43,18 @@
     .description {
         font-size: 13px;
     }
+
     .date {
         font-size: 12px;
         text-align: center;
     }
+
     .category {
         text-align: center;
+    }
+
+    .actions form {
+        display: inline;
     }
 }
 
